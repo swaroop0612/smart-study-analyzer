@@ -145,7 +145,12 @@
   </div>
 </div>
 <script>
-var API = 'https://smart-study-analyzer.onrender.com/dashboard-data';
+var name = localStorage.getItem('ssa_name') || '';
+if (!name) {
+  name = prompt('Enter your name to see your dashboard:') || '';
+  if (name) localStorage.setItem('ssa_name', name.trim());
+}
+var API = 'https://smart-study-analyzer.onrender.com/dashboard-data?name=' + encodeURIComponent(name);
 Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
 Chart.defaults.font.size = 12;
 Chart.defaults.color = '#6b7280';

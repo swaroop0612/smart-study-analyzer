@@ -12,7 +12,7 @@ CORS(app)
 CSV_FILE = 'study_data.csv'
 
 # These are the columns we will save
-COLUMNS = ['date', 'subject', 'hours', 'break_time', 'focus', 'distraction']
+COLUMNS = ['name', 'date', 'subject', 'hours', 'break_time', 'focus', 'distraction']
 
 
 def create_csv_if_not_exists():
