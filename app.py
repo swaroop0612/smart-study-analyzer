@@ -42,9 +42,10 @@ def log_session():
     create_csv_if_not_exists()
 
     # Save the data as a new row in the CSV
-    with open(CSV_FILE, mode='a', newline='') as file:
+with open(CSV_FILE, mode='a', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=COLUMNS)
         writer.writerow({
+            'name':        data['name'],
             'date':        data['date'],
             'subject':     data['subject'],
             'hours':       data['hours'],
@@ -52,19 +53,23 @@ def log_session():
             'focus':       data['focus'],
             'distraction': data['distraction']
         })
-
     return jsonify({"message": "Session logged successfully!"}), 200
 @app.route('/dashboard-data', methods=['GET'])
 def dashboard_data():
+    name = request.args.get('name', '').strip()
     df = load_data()
+    if name:
+        df = df[df['name'].str.lower() == name.lower()]
+    if len(df) == 0:
+        return jsonify({'error': 'No data found for this name'}), 404
     return jsonify({
-        'summary':     get_summary(df),
-        'efficiency':  get_efficiency(df),
+        'summary':       get_summary(df),
+        'efficiency':    get_efficiency(df),
         'subject_hours': get_subject_hours(df),
-        'daily_hours': get_daily_hours(df),
-        'focus_trend': get_focus_trend(df),
-        'distraction': get_distraction_analysis(df),
-        'insights':    get_insights(df)
+        'daily_hours':   get_daily_hours(df),
+        'focus_trend':   get_focus_trend(df),
+        'distraction':   get_distraction_analysis(df),
+        'insights':      get_insights(df)
     })
 
 
