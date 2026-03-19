@@ -5,6 +5,8 @@ CSV_FILE = 'study_data.csv'
 
 def load_data():
     df = pd.read_csv(CSV_FILE)
+    if 'name' not in df.columns:
+        df['name'] = 'default'
     df['date'] = pd.to_datetime(df['date'])
     return df
 
