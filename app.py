@@ -5,8 +5,7 @@ import csv
 import os
 
 app = Flask(__name__)
-CORS(app)
-
+CORS(app, origins=["https://swaroop0612.github.io", "https://69bd180--tranquil-cocada-9ef323.netlify.app"])
 CSV_FILE = 'study_data.csv'
 COLUMNS = ['name', 'date', 'subject', 'hours', 'break_time', 'focus', 'distraction']
 
