@@ -12,15 +12,15 @@ def load_data():
 
 
 def get_summary(df):
-    total_hours     = round(df['hours'].sum(), 1)
-    avg_hours       = round(df['hours'].mean(), 1)
-    total_sessions  = len(df)
+    total_hours     = float(round(df['hours'].sum(), 1))
+    avg_hours       = float(round(df['hours'].mean(), 1))
+    total_sessions  = int(len(df))
     best_subject    = df.groupby('subject')['focus'].mean().idxmax()
     return {
         'total_hours':    total_hours,
         'avg_hours':      avg_hours,
         'total_sessions': total_sessions,
-        'best_subject':   best_subject
+        'best_subject':   str(best_subject)
     }
 
 
