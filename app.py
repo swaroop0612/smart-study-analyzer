@@ -21,6 +21,12 @@ def create_csv_if_not_exists():
 @app.route('/')
 def home():
     return "Smart Study Analyzer backend is running!"
+@app.route('/reset-csv')
+def reset_csv():
+    if os.path.exists(CSV_FILE):
+        os.remove(CSV_FILE)
+    create_csv_if_not_exists()
+    return "CSV reset successfully!"
 
 
 @app.route('/log', methods=['POST'])
