@@ -3,7 +3,8 @@
  * Loads stats and renders 6 interactive charts.
  */
 
-const API_BASE_URL = "http://127.0.0.1:5000";
+const API_BASE_URL = "https://smart-study-analyzer-api.onrender.com";
+
 
 // Store chart instances so we can destroy/recreate them
 let charts = {
