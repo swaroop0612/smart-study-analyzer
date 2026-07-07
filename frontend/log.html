@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Study Session — Smart Study Analyzer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/log.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <span class="logo-text">Smart Study Analyzer</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="log.html" class="btn-nav">Log Session</a></li>
+                <li><a href="dashboard.html" class="btn-nav btn-primary">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Form Section -->
+    <section class="form-section">
+        <div class="container">
+            <div class="form-header">
+                <h1>📝 Log a Study Session</h1>
+                <p>Record what you studied and how it went. The more details you add, the better insights you get.</p>
+            </div>
+
+            <div class="form-container">
+                <form id="studyForm">
+                    
+                    <!-- Student Name -->
+                    <div class="form-group">
+                        <label for="student_name">Your Name <span class="required">*</span></label>
+                        <input type="text" id="student_name" name="student_name" 
+                               placeholder="e.g., Rahul Kumar" required minlength="2" maxlength="100">
+                        <small>This helps us keep your sessions separate from your friends'</small>
+                    </div>
+
+                    <div class="form-row">
+                        <!-- Date -->
+                        <div class="form-group">
+                            <label for="study_date">Study Date <span class="required">*</span></label>
+                            <input type="date" id="study_date" name="study_date" required>
+                        </div>
+
+                        <!-- Time -->
+                        <div class="form-group">
+                            <label for="study_time">Study Time</label>
+                            <input type="time" id="study_time" name="study_time">
+                            <small>Optional — when you started</small>
+                        </div>
+                    </div>
+
+                    <!-- Subject -->
+                    <div class="form-group">
+                        <label for="subject">Subject <span class="required">*</span></label>
+                        <input type="text" id="subject" name="subject" 
+                               placeholder="e.g., Mathematics, Physics, English" required>
+                    </div>
+
+                    <div class="form-row">
+                        <!-- Study Hours -->
+                        <div class="form-group">
+                            <label for="study_hours">Study Hours <span class="required">*</span></label>
+                            <input type="number" id="study_hours" name="study_hours" 
+                                   step="0.25" min="0.25" max="24" 
+                                   placeholder="e.g., 1.5" required>
+                            <small>How long did you study?</small>
+                        </div>
+
+                        <!-- Break Minutes -->
+                        <div class="form-group">
+                            <label for="break_minutes">Break Minutes</label>
+                            <input type="number" id="break_minutes" name="break_minutes" 
+                                   min="0" max="600" placeholder="e.g., 15" value="0">
+                            <small>Total break time taken</small>
+                        </div>
+                    </div>
+
+                    <!-- Focus Rating -->
+                    <div class="form-group">
+                        <label>Focus Rating <span class="required">*</span></label>
+                        <div class="rating-group" data-name="focus_rating">
+                            <button type="button" class="rating-btn" data-value="1">😴<span>1</span></button>
+                            <button type="button" class="rating-btn" data-value="2">😐<span>2</span></button>
+                            <button type="button" class="rating-btn" data-value="3">🙂<span>3</span></button>
+                            <button type="button" class="rating-btn" data-value="4">😊<span>4</span></button>
+                            <button type="button" class="rating-btn" data-value="5">🤩<span>5</span></button>
+                        </div>
+                        <small>How focused were you? 1 = Distracted, 5 = Deep Focus</small>
+                        <input type="hidden" id="focus_rating" name="focus_rating" required>
+                    </div>
+
+                    <!-- Distraction Level -->
+                    <div class="form-group">
+                        <label>Distraction Level <span class="required">*</span></label>
+                        <div class="rating-group" data-name="distraction_level">
+                            <button type="button" class="rating-btn" data-value="1">🧘<span>None</span></button>
+                            <button type="button" class="rating-btn" data-value="2">😌<span>Low</span></button>
+                            <button type="button" class="rating-btn" data-value="3">😐<span>Medium</span></button>
+                            <button type="button" class="rating-btn" data-value="4">😣<span>High</span></button>
+                            <button type="button" class="rating-btn" data-value="5">😵<span>Extreme</span></button>
+                        </div>
+                        <small>How distracted were you?</small>
+                        <input type="hidden" id="distraction_level" name="distraction_level" required>
+                    </div>
+
+                    <div class="form-row">
+                        <!-- Location -->
+                        <div class="form-group">
+                            <label for="study_location">Study Location</label>
+                            <select id="study_location" name="study_location">
+                                <option value="">Select...</option>
+                                <option value="Home">Home</option>
+                                <option value="Library">Library</option>
+                                <option value="Cafe">Cafe</option>
+                                <option value="Classroom">Classroom</option>
+                                <option value="Online">Online</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Study Method -->
+                        <div class="form-group">
+                            <label for="study_method">Study Method</label>
+                            <select id="study_method" name="study_method">
+                                <option value="">Select...</option>
+                                <option value="Reading">Reading</option>
+                                <option value="Practice Problems">Practice Problems</option>
+                                <option value="Active Recall">Active Recall</option>
+                                <option value="Notes">Taking Notes</option>
+                                <option value="Video">Video Lectures</option>
+                                <option value="Group Study">Group Study</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <!-- Mood Before -->
+                        <div class="form-group">
+                            <label for="mood_before">Mood Before</label>
+                            <select id="mood_before" name="mood_before">
+                                <option value="">Select...</option>
+                                <option value="Energized">Energized</option>
+                                <option value="Fresh">Fresh</option>
+                                <option value="Neutral">Neutral</option>
+                                <option value="Tired">Tired</option>
+                                <option value="Stressed">Stressed</option>
+                            </select>
+                        </div>
+
+                        <!-- Mood After -->
+                        <div class="form-group">
+                            <label for="mood_after">Mood After</label>
+                            <select id="mood_after" name="mood_after">
+                                <option value="">Select...</option>
+                                <option value="Energized">Energized</option>
+                                <option value="Focused">Focused</option>
+                                <option value="Confident">Confident</option>
+                                <option value="Neutral">Neutral</option>
+                                <option value="Tired">Tired</option>
+                                <option value="Frustrated">Frustrated</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Goal Completed -->
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="goal_completed" name="goal_completed">
+                            <span class="checkbox-custom"></span>
+                            <span>I completed my study goal for this session ✅</span>
+                        </label>
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="form-group">
+                        <label for="notes">Notes (Optional)</label>
+                        <textarea id="notes" name="notes" rows="3" 
+                                  placeholder="Any reflections, topics covered, or thoughts..." maxlength="500"></textarea>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large" id="submitBtn">
+                            💾 Save Study Session
+                        </button>
+                        <button type="reset" class="btn btn-secondary btn-large">
+                            🔄 Clear Form
+                        </button>
+                    </div>
+
+                </form>
+
+                <!-- Success / Error Message -->
+                <div id="messageBox" class="message-box hidden"></div>
+
+                <!-- Recent Sessions Section -->
+                <div class="recent-sessions">
+                    <div class="recent-header">
+                        <h3>📋 Your Recent Sessions</h3>
+                        <button type="button" class="btn-refresh" id="refreshBtn">
+                            🔄 Refresh
+                        </button>
+                    </div>
+                    <div id="sessionsList" class="sessions-list">
+                        <p class="no-sessions">💡 Enter your name above to see your sessions here.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>🗑️ Delete Session?</h3>
+            <p>Are you sure you want to delete this session? This cannot be undone.</p>
+            <div class="modal-buttons">
+                <button type="button" class="btn-cancel" id="cancelDelete">Cancel</button>
+                <button type="button" class="btn-confirm-delete" id="confirmDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Built with ❤️ for students who want to learn better</p>
+            <p class="footer-small">Smart Study Analyzer © 2026</p>
+        </div>
+    </footer>
+
+    <script src="js/log.js"></script>
+</body>
+</html>

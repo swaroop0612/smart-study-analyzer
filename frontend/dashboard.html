@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Smart Study Analyzer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <span class="logo-text">Smart Study Analyzer</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="log.html" class="btn-nav">Log Session</a></li>
+                <li><a href="dashboard.html" class="btn-nav btn-primary">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section">
+        <div class="container">
+            
+            <!-- Header -->
+            <div class="dashboard-header">
+                <div>
+                    <h1>📊 Your Study Dashboard</h1>
+                    <p>Track your progress and discover patterns in your study habits</p>
+                </div>
+                <div class="student-selector">
+                    <label for="studentSelect">Select Student:</label>
+                    <select id="studentSelect">
+                        <option value="">Loading...</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card stat-primary">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-value" id="statSessions">0</div>
+                    <div class="stat-label">Total Sessions</div>
+                </div>
+                
+                <div class="stat-card stat-success">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-value" id="statHours">0</div>
+                    <div class="stat-label">Total Hours</div>
+                </div>
+                
+                <div class="stat-card stat-warning">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-value" id="statFocus">0</div>
+                    <div class="stat-label">Average Focus</div>
+                </div>
+                
+                <div class="stat-card stat-info">
+                    <div class="stat-icon">📖</div>
+                    <div class="stat-value" id="statSubject">-</div>
+                    <div class="stat-label">Top Subject</div>
+                </div>
+                
+                <div class="stat-card stat-danger">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-value" id="statLongest">0</div>
+                    <div class="stat-label">Longest Session (hrs)</div>
+                </div>
+                
+                <div class="stat-card stat-purple">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="statGoals">0%</div>
+                    <div class="stat-label">Goals Completed</div>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="charts-grid">
+                
+                <!-- Chart 1: Daily Study Hours -->
+                <div class="chart-card chart-large">
+                    <h3>📈 Daily Study Hours</h3>
+                    <p class="chart-subtitle">Your study time over the last 30 days</p>
+                    <div class="chart-container">
+                        <canvas id="dailyHoursChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 2: Subject Distribution -->
+                <div class="chart-card">
+                    <h3>📚 Subject Distribution</h3>
+                    <p class="chart-subtitle">Hours spent per subject</p>
+                    <div class="chart-container">
+                        <canvas id="subjectChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 3: Distraction Distribution -->
+                <div class="chart-card">
+                    <h3>😵 Distraction Levels</h3>
+                    <p class="chart-subtitle">How often each distraction level occurred</p>
+                    <div class="chart-container">
+                        <canvas id="distractionChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 4: Focus Trend -->
+                <div class="chart-card chart-large">
+                    <h3>🎯 Focus Trend</h3>
+                    <p class="chart-subtitle">How your focus has changed over time</p>
+                    <div class="chart-container">
+                        <canvas id="focusTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 5: Weekly Study Hours -->
+                <div class="chart-card">
+                    <h3>📅 Weekly Hours</h3>
+                    <p class="chart-subtitle">Total hours per day of week</p>
+                    <div class="chart-container">
+                        <canvas id="weeklyChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 6: Break vs Focus -->
+                <div class="chart-card">
+                    <h3>☕ Break vs Focus</h3>
+                    <p class="chart-subtitle">How break time relates to focus</p>
+                    <div class="chart-container">
+                        <canvas id="breakFocusChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state hidden">
+                <div class="empty-icon">📭</div>
+                <h2>No Data Yet</h2>
+                <p>This student hasn't logged any study sessions.</p>
+                <a href="log.html" class="btn btn-primary">Log First Session</a>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading your study data...</p>
+            </div>
+
+        </div>
+                    <!-- AI Study Coach Section -->
+            <div class="coach-section">
+                <div class="coach-header">
+                    <h2>🤖 Your AI Study Coach</h2>
+                    <p>Personalized insights based on your study patterns</p>
+                </div>
+
+                <div class="coach-grid">
+                    <!-- Productivity Score Card -->
+                    <div class="coach-card productivity-card">
+                        <h3>📊 Productivity Score</h3>
+                        <div class="score-circle" id="scoreCircle">
+                            <div class="score-value" id="productivityScore">0</div>
+                            <div class="score-grade" id="productivityGrade">-</div>
+                        </div>
+                        <p class="score-level" id="productivityLevel">Calculating...</p>
+                    </div>
+
+                    <!-- Personality Card -->
+                    <div class="coach-card personality-card">
+                        <h3>🌟 Study Personality</h3>
+                        <div class="personality-icon" id="personalityIcon">🌱</div>
+                        <h4 id="personalityName">New Learner</h4>
+                        <p id="personalityDescription">Log sessions to discover your personality</p>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="recommendations-section">
+                    <h3>💡 Personalized Recommendations</h3>
+                    <div id="recommendationsList" class="recommendations-list">
+                        <p class="loading-text">Loading recommendations...</p>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <div class="achievements-section">
+                    <h3>🏆 Achievements</h3>
+                    <div id="achievementsList" class="achievements-list">
+                        <p class="loading-text">Loading achievements...</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Built with ❤️ for students who want to learn better</p>
+            <p class="footer-small">Smart Study Analyzer © 2026</p>
+        </div>
+    </footer>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
